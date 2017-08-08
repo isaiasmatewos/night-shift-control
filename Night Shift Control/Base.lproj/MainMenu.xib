@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Night_Shift_Control" customModuleProvider="target"/>
+        <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <customObject id="M4k-nl-VXY" userLabel="StatusMenuController" customClass="StatusMenuController" customModule="Night_Shift_Control" customModuleProvider="target">
+            <connections>
+                <outlet property="disableNightShiftMenuItem" destination="20V-Zf-dkW" id="zjt-c1-5uY"/>
+                <outlet property="enableNightShiftMenuItem" destination="Vrm-Oh-8xi" id="ZGN-m0-dOM"/>
+                <outlet property="nightShiftIntensityMenuItem" destination="mbS-gY-Wwz" id="RFe-UE-63q"/>
+                <outlet property="statusMenu" destination="Snz-jF-4Jz" id="awU-Ps-lAK"/>
+            </connections>
+        </customObject>
+        <menu id="Snz-jF-4Jz">
+            <items>
+                <menuItem title="Disable for " id="zwE-ed-i7I">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="gmV-aN-zZh"/>
+                <menuItem title="Enable Night Shift" id="Vrm-Oh-8xi">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="enableNightShiftMenuItemClicked:" target="M4k-nl-VXY" id="u7K-SS-b5V"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Disable Night Shift" id="20V-Zf-dkW">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="disableNightShiftMenuItemClicked:" target="M4k-nl-VXY" id="b5l-F2-SLh"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Intensity" enabled="NO" id="mbS-gY-Wwz">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Intensity" id="Lyb-u4-i40">
+                        <items>
+                            <menuItem title="10" tag="10" enabled="NO" id="ouc-C8-JhJ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="0Va-YV-Syl"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="20" tag="20" enabled="NO" id="n92-Te-cWV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="Uxg-eB-itP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="30" tag="30" enabled="NO" id="LoA-wb-pQA">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="Ied-xJ-xcS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="40" tag="40" enabled="NO" id="ssq-pi-8nm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="QNx-n1-BoX"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="50" tag="50" enabled="NO" id="f2d-1G-xvY">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="Zmy-BN-eDq"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="60" tag="60" enabled="NO" id="LfL-bi-m0N">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="cfW-cl-z9g"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="70" tag="70" enabled="NO" id="PfK-wy-PSs">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="QaY-G4-k1t"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="80" tag="80" enabled="NO" id="SWU-Yc-Gys">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="wAC-e0-VZr"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="90" tag="90" enabled="NO" id="sW8-B4-wuE">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="VLr-5c-uEG"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="100" tag="100" enabled="NO" id="YON-yD-K9s">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="nightShiftIntensityChosen:" target="M4k-nl-VXY" id="5xv-Px-JRr"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="wEO-nC-VHf"/>
+                <menuItem title="Quit" id="5Xq-OY-m8Q">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quitMenuItemClicked:" target="M4k-nl-VXY" id="0vL-kt-I7C"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="27" y="-241"/>
+        </menu>
+    </objects>
+</document>
