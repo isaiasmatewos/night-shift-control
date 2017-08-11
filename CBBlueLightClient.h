@@ -1,21 +1,42 @@
-// Copyright 2017 Jenghis
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 #import <Foundation/Foundation.h>
 
-// Partial header for CBBlueLightClient in private CoreBrightness API
+//
+//  CBBlueLightClient.h
+//  NightShifter
+//
+//  Created by Eric Lanini on 6/11/17.
+//  Copyright © 2017 Eric Lanini. All rights reserved.
+//
+
+#ifndef CBBlueLightClient_h
+#define CBBlueLightClient_h
+
+typedef struct {
+    int hour;
+    int minute;
+} Time;
+
+typedef struct {
+    Time fromTime;
+    Time toTime;
+} Schedule;
+
+typedef struct {
+    char active;
+    char enabled;
+    char sunSchedulePermitted;
+    int mode;
+    Schedule schedule;
+    unsigned long long disableFlags;
+} StatusData;
+
 @interface CBBlueLightClient : NSObject
-- (BOOL)setStrength:(float)strength commit:(BOOL)commit;
-- (BOOL)setEnabled:(BOOL)enabled;
+- (BOOL)setStrength:(float)arg1 commit: (BOOL)arg2;
+- (BOOL)getStrength:(float *)arg1;
+- (BOOL)setEnabled:(BOOL)arg1;
++ (BOOL)supportsBlueLightReduction;
+- (BOOL)getBlueLightStatus:(StatusData *)arg1;
 @end
+
+
+#endif /* CBBlueLightClient_h */
