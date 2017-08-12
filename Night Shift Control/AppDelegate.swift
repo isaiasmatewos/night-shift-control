@@ -11,126 +11,146 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
+    
+    // The whole menu IBOutlet
     @IBOutlet weak var statusMenu: NSMenu!
-    @IBOutlet weak var enableNightShiftMenuItem: NSMenuItem!
+    
+    // Menu item IBOutlets
     @IBOutlet weak var disableForAppMenuItem: NSMenuItem!
+    @IBOutlet weak var enableNightShiftMenuItem: NSMenuItem!
+    @IBOutlet weak var adjustWarmthTitleMenuItem: NSMenuItem!
+    @IBOutlet weak var statusTitleMenuItem: NSMenuItem!
     @IBOutlet weak var nightShiftStatus: NSMenuItem!
+    @IBOutlet weak var launchNightShiftPrefsMenuItem: NSMenuItem!
+    @IBOutlet weak var launchAboutDialogMenuItem: NSMenuItem!
+    @IBOutlet weak var quitMenuItem: NSMenuItem!
+    
+    // References for the slider that controls Night Shift warmth
     @IBOutlet weak var nightShiftWarmthSlider: NSSlider!
-    @IBOutlet weak var nigthShiftWarmthView: NSView!
+    @IBOutlet weak var nigthShiftWarmthView: NSView! // Container view that contains the NSSlider
     
+    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength) // Reference for the menu bar icon
+    let blueLightClient = CBBlueLightClient() // Blue light client for controlling Night Shift
     
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-    let blueLightClient = CBBlueLightClient()
     
     var workspace : NSWorkspace = NSWorkspace.shared()
-    var notificationCenter : NotificationCenter = NSWorkspace.shared().notificationCenter
-    let nightShiftControlBundleIdentifier = NSRunningApplication.current().bundleIdentifier!
-    let blackListedAppsPrefKey = NSRunningApplication.current().bundleIdentifier! +  ".BlackListedApps"
-    let intensityLevelPrefKey = NSRunningApplication.current().bundleIdentifier! +  ".IntentsityLevel"
-    let defaults = NSUserDefaultsController.shared().defaults
-    var currentApp : NSRunningApplication = NSWorkspace.shared().frontmostApplication!
-    var blackListedApps : [String] = []
-    var intensityLevel : Float = 0
+    var notificationCenter : NotificationCenter = NSWorkspace.shared().notificationCenter // Notification to receive notifications about app activation changes
+    let nightShiftControlBundleIdentifier = NSRunningApplication.current().bundleIdentifier! // Identifier for this app
+    let blackListedAppsPrefKey = NSRunningApplication.current().bundleIdentifier! +  ".BlackListedApps" // Key for storing Night Shift blacklisted apps
+    let defaults = NSUserDefaultsController.shared().defaults // The defautlts to save balckisted apps array
+    var currentApp : NSRunningApplication = NSWorkspace.shared().frontmostApplication! // NSRunningApplication instance for the current Applications
+    var blackListedApps : [String] = [] // An array to contain bundle identifiers of black listed apps
+    var intensityLevel : Float = 0 // This will store the current Night Shift strength
     
-    var blueLightStatus : StatusData = StatusData.init()
-    var applicationActiveObserver : AnyObject = NSObject.init()
-    var pastStrength : Float = 0
-    var wasEnabled : Bool = false
+    var blueLightStatus : StatusData = StatusData.init() // This will store status data of CBBlueLightClient
+    var applicationActiveObserver : AnyObject = NSObject.init() // Notification observer reference for NSWorkspaceDidActivateApplication
+    var blueLightStrength : Float = 0  // Stores the strength of Night Shift
+    var wasEnabled : Bool = false // Flag to store whether Night Shift was enabled in the last non blacklisted app
+    var blueLightNotAvailableALert = NSAlert() // Dialog to show that Night Shift is not supported by the current hardware
     
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        defaults.register(defaults: [blackListedAppsPrefKey : [], intensityLevelPrefKey: 80])
-        blackListedApps = (defaults.object(forKey: blackListedAppsPrefKey) as? [String])!
-        blueLightClient.getStrength(&pastStrength)
         
+        if !CBBlueLightClient.supportsBlueLightReduction() {
+            // Night Shift is not supported by the current hardware we show a dialog informing the user and exit the app
+            blueLightNotAvailableALert.messageText = "ns_not_supported_for_device".localized
+            blueLightNotAvailableALert.runModal()
+            NSApplication.shared().terminate(self)
+        }
+        
+        defaults.register(defaults: [blackListedAppsPrefKey : []]) // Initialize defaults
+        blackListedApps = (defaults.object(forKey: blackListedAppsPrefKey) as? [String])! // Get blacklisted apps array from defaults
+        blueLightClient.getStrength(&blueLightStrength) // Get the current strength and store it in blueLightStrenght
+        blueLightClient.getBlueLightStatus(&blueLightStatus) // Get the current status of blue light and store it in blueLightStatus
+        
+        // We add a notification when an application becomes active
         applicationActiveObserver = self.notificationCenter.addObserver(forName: NSNotification.Name.NSWorkspaceDidActivateApplication, object: nil, queue: OperationQueue.main) {
             notification in
-            self.currentApp = NSWorkspace.shared().frontmostApplication!
-            self.setBlueLightForApp()
+            self.currentApp = NSWorkspace.shared().frontmostApplication! // Update the currentapp NSRunningApplication reference
+            self.updateBlueLightStatusForApp() // Handle app changes
             print("Front app is --> \(self.currentApp.localizedName!)")
         }
         
-    
         
         let icon = NSImage(named: "statusicon")
         icon?.isTemplate = true // best for dark mode
-        statusItem.image = icon
+        statusItem.image = icon // Set the icon for the meubar
+        statusMenu.item(withTitle: "warmth")?.view = nigthShiftWarmthView // Replace the menu "warmth" with the NSSlider
+        statusMenu.delegate = self // Make this class listen to menu opening events in the menuWillOpen(_)
+        statusItem.menu = statusMenu // Set the menu for system the status bar item
         
-        statusMenu.item(withTitle: "warmth")?.view = nigthShiftWarmthView
-        
-        
-        
-        if let button = statusItem.button {
-            print("Adding icon and action to menubar button")
-            button.image = icon
-        }
-        
-        statusMenu.delegate = self
-        statusItem.menu = statusMenu
+        // Set starting titles for menus
+        quitMenuItem.title = "quit".localized
+        statusTitleMenuItem.title = "status_title".localized
+        adjustWarmthTitleMenuItem.title = "adjust_warmth_title".localized
     }
-    
 
+    // Handles the Disable for App menu click
     @IBAction func disableForAppMenuItemClicked(_ sender: NSMenuItem) {
         if !blackListedApps.contains((currentApp.bundleIdentifier)!) {
+            // If the app was not already in the black list add it
             blackListedApps.append((currentApp.bundleIdentifier)!)
+            // Update the preferences with the new updated black list
             defaults.set(blackListedApps, forKey: blackListedAppsPrefKey)
+            // Disable Night Shift
             blueLightClient.setEnabled(false)
         } else {
+            // If the app was already on the black list remove it
             let index = blackListedApps.index(of: (currentApp.bundleIdentifier)!)
             blackListedApps.remove(at: index!)
+            // Update the prefrences with the new updated black list
             defaults.set(blackListedApps, forKey: blackListedAppsPrefKey)
-            blueLightClient.setEnabled(true)
+            if wasEnabled {
+                // If Night shift was enabled for the last app 
+                blueLightClient.setEnabled(true)
+            }
         }
     }
-    
-    
     
     
     @IBAction func quitMenuItemClicked(_ sender: NSMenuItem) {
         NSApplication.shared().terminate(self)
     }
     
-    @IBAction func enableNightShiftMenuItemClicked(_ sender: NSMenuItem) {
+    @IBAction func turnOnNightShiftMenuItemClicked(_ sender: NSMenuItem) {
         if sender.state == 1 {
             sender.state = 0
-            blueLightClient.setEnabled(false)
+            if blackListedApps.contains((currentApp.bundleIdentifier)!){
+                wasEnabled = sender.state == 0
+            } else {
+                blueLightClient.setEnabled(false)
+            }
         } else {
             sender.state = 1
-            blueLightClient.setEnabled(true)
+            if blackListedApps.contains((currentApp.bundleIdentifier)!){
+                wasEnabled = sender.state == 1
+            } else {
+                blueLightClient.setEnabled(true)
+            }
         }
         
-            //nightShiftStatus.title = "Enabled Manually"
+        nightShiftStatus.title = "ns_manually_turned_on_status".localized
     }
     
-    @IBAction func openNightShiftPreferencesMenuItemClicked(_ sender: NSMenuItem) {
-    }
-    
-    
-    
-//
-//    @IBAction func nightShiftIntensityChosen(_ sender: NSMenuItem) {
-//        intensityLevel = Float.init(sender.tag)/100
-//        blueLightClient.setStrength(intensityLevel , commit: true)
-//    }
-//    
-    func destroyObservers() {
-        print("Removing observers")
-        notificationCenter.removeObserver(applicationActiveObserver)
-    }
 
     
     func menuWillOpen(_ menu: NSMenu) {
         // Before the menu appears update all the nececessary information in the menu
-        updateMenus()
-        print("Strength is strength \(pastStrength)")
+        updateMenuStatus()
+        var cct : Float = 0
+        var str : Float = 0
+        blueLightClient.getCCT(&cct)
+        blueLightClient.getStrength(&str)
+        print("Strength is \(str) and CCT is \(str)")
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-        destroyObservers()
+        print("Removing observers")
+        notificationCenter.removeObserver(applicationActiveObserver)
     }
     
-    func setBlueLightForApp()  {
+    func updateBlueLightStatusForApp()  {
         if currentApp.bundleIdentifier == nightShiftControlBundleIdentifier {
             disableForAppMenuItem.isHidden = true
         } else {
@@ -138,34 +158,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         
         blueLightClient.getBlueLightStatus(&blueLightStatus)
-        blueLightClient.getStrength(&pastStrength)
+        blueLightClient.getStrength(&blueLightStrength)
         
         
         if blackListedApps.contains((currentApp.bundleIdentifier)!) {
             wasEnabled = blueLightStatus.enabled == 1
             blueLightClient.setEnabled(false)
-            disableForAppMenuItem.title = "Enable for “\(self.currentApp.localizedName!)“"
+            disableForAppMenuItem.title =  String(format: "enable_ns_for_app".localized, self.currentApp.localizedName!)
         } else {
-            if pastStrength > 0 && wasEnabled {
-                blueLightClient.setStrength(pastStrength, commit: true)
+            if wasEnabled {
                 blueLightClient.setEnabled(true)
             }
             
-            disableForAppMenuItem.title = "Disable for “\(self.currentApp.localizedName!)“"
+            disableForAppMenuItem.title = String(format: "disable_ns_for_app".localized, self.currentApp.localizedName!)
         }
     }
 
-    func updateMenus() {
-        // Update menus
-        blueLightClient.getBlueLightStatus(&blueLightStatus)
+    func updateMenuStatus() {
+        // Update menu titles and and strength slider
+        // based on the status provided by CBBlueLightClient
+        
+        blueLightClient.getBlueLightStatus(&blueLightStatus) // Get the current blue light status
         
         print("Blue light status -> \(blueLightStatus)")
-        
-        
-        blueLightClient.getStrength(&pastStrength)
+    
+        blueLightClient.getStrength(&blueLightStrength)
         
         enableNightShiftMenuItem.state = Int(blueLightStatus.enabled)
-        nightShiftWarmthSlider.integerValue = Int(pastStrength) * 100
+        nightShiftWarmthSlider.integerValue = Int(blueLightStrength * 100)
+        nightShiftWarmthSlider.isEnabled = blueLightStatus.enabled == 1
 
         
 //        if blackListedApps.contains(currentApp.bundleIdentifier!) && blueLightStatus.enabled == 0 {
@@ -175,12 +196,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 //        }
         
         if blueLightStatus.mode == 0 {
-            nightShiftStatus.title = "Night Shift is Disabled"
+            nightShiftStatus.title = "ns_disabled_status".localized
         } else if blueLightStatus.mode == 1 {
-            nightShiftStatus.title = "Enabled from Sunset to Sunrise"
-            enableNightShiftMenuItem.title = "Turn On Until Sunrise "
+            nightShiftStatus.title = "sunrset_to_sunrise_ns_status".localized
+            enableNightShiftMenuItem.title = "turn_ns_on_until_sunrise".localized
         } else if blueLightStatus.sunSchedulePermitted == 0 && blueLightStatus.mode == 1{
-            nightShiftStatus.title = "Needs Location Permission"
+            nightShiftStatus.title = "ns_needs_location_permission".localized
         } else if blueLightStatus.mode == 2 {
             
             var fromHour : Int32 = blueLightStatus.schedule.fromTime.hour
@@ -231,13 +252,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 toTime = "\(toHour):\(toMinute) " + toAMPM
             }
             
-            nightShiftStatus.title = "Enabled from \(fromTime) to \(toTime)"
-            enableNightShiftMenuItem.title = "Turn On Until Tomorrow"
+            nightShiftStatus.title = String(format:"custom_time_ns_status".localized, fromTime, toTime )
+        
+            enableNightShiftMenuItem.title = "turn_ns_on_until_to_tomorrow".localized
         }
-
-        
-        
-        
+    }
+    
+    
+    @IBAction func launchDisplaysPrefPaneMenuItemClicked(_ sender: NSMenuItem) {
+        NSWorkspace.shared().openFile("/System/Library/PreferencePanes/Displays.prefPane")
     }
 
     @IBAction func onNightShiftWarmSliderChanged(_ sender: NSSlider) {

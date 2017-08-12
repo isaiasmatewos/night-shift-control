@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ns_not_supported_for_device</key>
+	<dict>
+		<key>value</key>
+		<string>Your Mac doesn&apos;t support Night Shift</string>
+		<key>comment</key>
+		<string>For a dialog that lets the user now that the current device doesn&apos;t support Night Shift</string>
+	</dict>
+	<key>status_title</key>
+	<dict>
+		<key>value</key>
+		<string>Status:</string>
+		<key>comment</key>
+		<string>Title for Night Shift status</string>
+	</dict>
+	<key>ns_manually_turned_on_status</key>
+	<dict>
+		<key>value</key>
+		<string>Turned On Manually</string>
+		<key>comment</key>
+		<string>Night Shift is turned on manually</string>
+	</dict>
+	<key>ns_disabled_status</key>
+	<dict>
+		<key>value</key>
+		<string>Night Shift is Disabled</string>
+		<key>comment</key>
+		<string>Night shift is disbled </string>
+	</dict>
+	<key>ns_needs_location_permission</key>
+	<dict>
+		<key>value</key>
+		<string>Needs Location Permission</string>
+		<key>comment</key>
+		<string>Location permission for Night Shift hasn&apos;t been granted</string>
+	</dict>
+	<key>enable_ns_for_app</key>
+	<dict>
+		<key>value</key>
+		<string>Enable for ”%@”</string>
+		<key>comment</key>
+		<string>Enables Night Shift shift for the front app if it was disabled previously</string>
+	</dict>
+	<key>disable_ns_for_app</key>
+	<dict>
+		<key>value</key>
+		<string>Disable for ”%@”</string>
+		<key>comment</key>
+		<string>Disbles Night Shift for the app that&apos;s on front</string>
+	</dict>
+	<key>turn_ns_on_until_sunrise</key>
+	<dict>
+		<key>value</key>
+		<string>Turn On Until Sunrise</string>
+		<key>comment</key>
+		<string>Turns Night Shift on until sunrise</string>
+	</dict>
+	<key>turn_ns_on_until_to_tomorrow</key>
+	<dict>
+		<key>value</key>
+		<string>Turn On Until Tomorrow</string>
+		<key>comment</key>
+		<string>Turns on Night Shift until tomorrow</string>
+	</dict>
+	<key>adjust_warmth_title</key>
+	<dict>
+		<key>value</key>
+		<string>Adjust Warmth:</string>
+		<key>comment</key>
+		<string>Title for the warmth control slider</string>
+	</dict>
+	<key>custom_time_ns_status</key>
+	<dict>
+		<key>value</key>
+		<string>Enabled from %@ to %@</string>
+		<key>comment</key>
+		<string>Shows the time range that Night Shift is enabled</string>
+	</dict>
+	<key>sunrset_to_sunrise_ns_status</key>
+	<dict>
+		<key>value</key>
+		<string>Enabled From Sunset to Sunrise</string>
+		<key>comment</key>
+		<string>Shows that Night Shift is enabled form sunset to sunrise</string>
+	</dict>
+	<key>open_display_pref_pane</key>
+	<dict>
+		<key>value</key>
+		<string>Open Display Preferences...</string>
+		<key>comment</key>
+		<string>Opens the system Displays prefrence pane</string>
+	</dict>
+	<key>about</key>
+	<dict>
+		<key>value</key>
+		<string>About</string>
+		<key>comment</key>
+		<string>Shows about app dialog</string>
+	</dict>
+	<key>quit</key>
+	<dict>
+		<key>value</key>
+		<string>Quit</string>
+		<key>comment</key>
+		<string>Quits the app</string>
+	</dict>
+</dict>
+</plist>

@@ -21,6 +21,8 @@ typedef struct {
     Time toTime;
 } Schedule;
 
+
+
 typedef struct {
     char active;
     char enabled;
@@ -33,7 +35,11 @@ typedef struct {
 @interface CBBlueLightClient : NSObject
 - (BOOL)setStrength:(float)arg1 commit: (BOOL)arg2;
 - (BOOL)getStrength:(float *)arg1;
+- (BOOL)getCCT:(float *)arg1;
+- (BOOL)setCCT:(float) arg1 commit: (BOOL) arg2;
 - (BOOL)setEnabled:(BOOL)arg1;
+- (BOOL)setEnabled:(BOOL)arg1 withOption: (int) arg2;
+- (BOOL)setStatusNotificationBlock: (id /* block */) arg1;
 + (BOOL)supportsBlueLightReduction;
 - (BOOL)getBlueLightStatus:(StatusData *)arg1;
 @end

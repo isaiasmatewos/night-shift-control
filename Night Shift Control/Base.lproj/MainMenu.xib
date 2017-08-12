@@ -15,60 +15,58 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Night_Shift_Control" customModuleProvider="target">
             <connections>
+                <outlet property="adjustWarmthTitleMenuItem" destination="doq-fn-spb" id="INE-Lj-tDk"/>
                 <outlet property="disableForAppMenuItem" destination="zwE-ed-i7I" id="JVt-7D-i0b"/>
-                <outlet property="enableNightShiftMenuItem" destination="Vrm-Oh-8xi" id="E4n-33-efF"/>
+                <outlet property="enableNightShiftMenuItem" destination="peK-6b-QRY" id="g6Q-yq-1fx"/>
+                <outlet property="launchAboutDialogMenuItem" destination="XdH-KK-hDM" id="MNC-dP-v5A"/>
+                <outlet property="launchNightShiftPrefsMenuItem" destination="uSx-ud-boM" id="c0n-BK-KW2"/>
                 <outlet property="nightShiftStatus" destination="7kE-Mb-YJf" id="qse-OS-vwN"/>
                 <outlet property="nightShiftWarmthSlider" destination="ogV-oG-o2L" id="yCT-gX-DvZ"/>
                 <outlet property="nigthShiftWarmthView" destination="gYZ-UN-9mb" id="oJS-ss-sRg"/>
+                <outlet property="quitMenuItem" destination="5Xq-OY-m8Q" id="tdb-Zd-QTb"/>
                 <outlet property="statusMenu" destination="Snz-jF-4Jz" id="T7m-lP-A9p"/>
+                <outlet property="statusTitleMenuItem" destination="cYD-0l-kCI" id="14Q-yY-DOn"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="M4k-nl-VXY" userLabel="StatusMenuController" customClass="StatusMenuController" customModule="Night_Shift_Control" customModuleProvider="target">
-            <connections>
-                <outlet property="disableForAppMenuItem" destination="zwE-ed-i7I" id="CMC-fr-yBk"/>
-                <outlet property="enableNightShiftMenuItem" destination="Vrm-Oh-8xi" id="ZGN-m0-dOM"/>
-                <outlet property="nightShiftStatus" destination="7kE-Mb-YJf" id="0VG-qd-eRo"/>
-                <outlet property="statusMenu" destination="Snz-jF-4Jz" id="awU-Ps-lAK"/>
-            </connections>
-        </customObject>
-        <menu id="Snz-jF-4Jz">
+        <menu id="Snz-jF-4Jz" userLabel="MenuBarMenu">
             <items>
-                <menuItem title="Disable for " id="zwE-ed-i7I">
+                <menuItem title="Disable for App" id="zwE-ed-i7I" userLabel="Disable For App" propertyAccessControl="none">
+                    <attributedString key="attributedTitle"/>
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="disableForAppMenuItemClicked:" target="Voe-Tx-rLC" id="elV-kW-6VP"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="4Io-SY-1Wz"/>
-                <menuItem title="Status:" id="cYD-0l-kCI">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Night Shift Status" id="7kE-Mb-YJf">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
                 <menuItem isSeparatorItem="YES" id="6YS-De-Hnm"/>
-                <menuItem title="Enable Night Shift" id="Vrm-Oh-8xi">
+                <menuItem title="Turn On Night Shift" id="peK-6b-QRY">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="enableNightShiftMenuItemClicked:" target="Voe-Tx-rLC" id="3kf-62-RuS"/>
+                        <action selector="turnOnNightShiftMenuItemClicked:" target="Voe-Tx-rLC" id="jHK-pl-4Cp"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="kfp-oc-fQb"/>
-                <menuItem title="Adjust Warmth:" id="doq-fn-spb">
+                <menuItem isSeparatorItem="YES" id="tg2-MK-Tqs"/>
+                <menuItem title="Adjust Warmth:" id="doq-fn-spb" userLabel="Adjust Warmth">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="warmth" id="4pY-KN-ONh">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="wEO-nC-VHf"/>
-                <menuItem title="Night Shift Preferences..." id="uSx-ud-boM">
+                <menuItem title="Status:" id="cYD-0l-kCI" userLabel="Status Title">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Night Shift Status" id="7kE-Mb-YJf">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="4Io-SY-1Wz"/>
+                <menuItem title="Night Shift Preferences..." id="uSx-ud-boM" userLabel="Launch Night Shift Prefs">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="openNightShiftPreferencesMenuItemClicked:" target="M4k-nl-VXY" id="wpY-pM-4YX"/>
+                        <action selector="launchDisplaysPrefPaneMenuItemClicked:" target="Voe-Tx-rLC" id="KA6-Jc-GwY"/>
                     </connections>
                 </menuItem>
-                <menuItem title="About" id="XdH-KK-hDM">
+                <menuItem title="About" id="XdH-KK-hDM" userLabel="Launch About Dialog">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="Quit" id="5Xq-OY-m8Q">
@@ -81,11 +79,11 @@
             <point key="canvasLocation" x="22" y="-395"/>
         </menu>
         <customView id="gYZ-UN-9mb" userLabel="NightShiftStatusView">
-            <rect key="frame" x="0.0" y="0.0" width="223" height="38"/>
+            <rect key="frame" x="0.0" y="0.0" width="253" height="38"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ogV-oG-o2L">
-                    <rect key="frame" x="18" y="9" width="200" height="19"/>
+                    <rect key="frame" x="18" y="9" width="228" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="rEy-LI-7FV"/>
                     <connections>
@@ -93,7 +91,7 @@
                     </connections>
                 </slider>
             </subviews>
-            <point key="canvasLocation" x="25.5" y="-188"/>
+            <point key="canvasLocation" x="29.5" y="-198"/>
         </customView>
     </objects>
 </document>
