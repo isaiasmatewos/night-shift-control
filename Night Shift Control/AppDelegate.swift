@@ -97,16 +97,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             defaults.set(blackListedApps, forKey: blackListedAppsPrefKey)
             // Disable Night Shift
             disabledNightShift(forApp: true)
+            // Change the title to "Enable for {currentApp}"
+            disableForAppMenuItem.title = String(format: "enable_ns_for_app".localized, currentApp.localizedName!)
         } else {
             // If the app was already on the black list remove it
             let index = blackListedApps.index(of: (currentApp.bundleIdentifier)!)
             blackListedApps.remove(at: index!)
             // Update the prefrences with the new updated black list
             defaults.set(blackListedApps, forKey: blackListedAppsPrefKey)
-            if wasEnabled {
-                // If Night shift was enabled for the last app 
-                enableNightShift()
-            }
+            // If Night shift was enabled for the last app
+            enableNightShift()
+            // Change the title to "Disable for {currentApp}"
+            disableForAppMenuItem.title = String(format: "disable_ns_for_app".localized, currentApp.localizedName!)
         }
     }
     
