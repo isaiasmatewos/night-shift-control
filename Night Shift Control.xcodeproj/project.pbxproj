@@ -13,19 +13,21 @@
 		6A0AE2DA1F39E4A400FE2219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AE2D91F39E4A400FE2219 /* Assets.xcassets */; };
 		6A0AE2E81F39E57E00FE2219 /* CoreBrightness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0AE2E71F39E57E00FE2219 /* CoreBrightness.framework */; };
 		6A43DF651F3B956000C57988 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A43DF631F3B956000C57988 /* MainMenu.xib */; };
+		6ADEC3991F405BFE00897F6B /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEC3981F405BFE00897F6B /* Credits.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6A0200691F3DD49700FF6985 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/string_resource.plist; sourceTree = "<group>"; };
 		6A02006B1F3DD6A900FF6985 /* Localizator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizator.swift; sourceTree = "<group>"; };
 		6A0AE2D41F39E4A400FE2219 /* Night Shift Control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Night Shift Control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A0AE2D71F39E4A400FE2219 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6A0AE2D71F39E4A400FE2219 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		6A0AE2D91F39E4A400FE2219 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A0AE2DE1F39E4A400FE2219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A0AE2E71F39E57E00FE2219 /* CoreBrightness.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBrightness.framework; path = ../../../../../../System/Library/PrivateFrameworks/CoreBrightness.framework; sourceTree = "<group>"; };
 		6A0AE2E91F39E63600FE2219 /* Night Shift Control-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Night Shift Control-Bridging-Header.h"; sourceTree = "<group>"; };
 		6A0AE2EB1F39E63700FE2219 /* CBBlueLightClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBBlueLightClient.h; sourceTree = "<group>"; };
 		6A43DF641F3B956000C57988 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6ADEC3981F405BFE00897F6B /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		6A0AE2D61F39E4A400FE2219 /* Night Shift Control */ = {
 			isa = PBXGroup;
 			children = (
+				6ADEC3981F405BFE00897F6B /* Credits.html */,
 				6A0AE2D71F39E4A400FE2219 /* AppDelegate.swift */,
 				6A02006A1F3DD49700FF6985 /* string_resource.plist */,
 				6A43DF631F3B956000C57988 /* MainMenu.xib */,
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A0AE2DA1F39E4A400FE2219 /* Assets.xcassets in Resources */,
+				6ADEC3991F405BFE00897F6B /* Credits.html in Resources */,
 				6A43DF651F3B956000C57988 /* MainMenu.xib in Resources */,
 				6A0200681F3DD49700FF6985 /* string_resource.plist in Resources */,
 			);

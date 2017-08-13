@@ -68,6 +68,9 @@
                 </menuItem>
                 <menuItem title="About" id="XdH-KK-hDM" userLabel="Launch About Dialog">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="launcAboutDialogMenuItemClicked:" target="Voe-Tx-rLC" id="tdc-Hv-TKC"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Quit" id="5Xq-OY-m8Q">
                     <modifierMask key="keyEquivalentModifierMask"/>

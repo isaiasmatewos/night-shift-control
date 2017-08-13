@@ -2,10 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ns_not_supported_for_device</key>
+	<key>ns_not_available_dialog_title</key>
 	<dict>
 		<key>value</key>
-		<string>Your Mac doesn&apos;t support Night Shift</string>
+		<string>Night Shift is not available</string>
+		<key>comment</key>
+		<string>Night Shift not available dialog title</string>
+	</dict>
+	<key>ns_not_available_dialog_info</key>
+	<dict>
+		<key>value</key>
+		<string>Night Shift is not avaialble in some older Macs.</string>
 		<key>comment</key>
 		<string>For a dialog that lets the user now that the current device doesn&apos;t support Night Shift</string>
 	</dict>
@@ -40,14 +47,14 @@
 	<key>enable_ns_for_app</key>
 	<dict>
 		<key>value</key>
-		<string>Enable for ”%@”</string>
+		<string>Enable For ”%@”</string>
 		<key>comment</key>
 		<string>Enables Night Shift shift for the front app if it was disabled previously</string>
 	</dict>
 	<key>disable_ns_for_app</key>
 	<dict>
 		<key>value</key>
-		<string>Disable for ”%@”</string>
+		<string>Disable For ”%@”</string>
 		<key>comment</key>
 		<string>Disbles Night Shift for the app that&apos;s on front</string>
 	</dict>
