@@ -105,7 +105,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             blackListedApps.remove(at: index!)
             // Update the prefrences with the new updated black list
             defaults.set(blackListedApps, forKey: blackListedAppsPrefKey)
-            // If Night shift was enabled for the last app
+            // Enable Night Shift
             enableNightShift()
             // Change the title to "Disable for {currentApp}"
             disableForAppMenuItem.title = String(format: "disable_ns_for_app".localized, currentApp.localizedName!)
@@ -226,10 +226,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func updateMenuStatus() {
         // Updates menu titles and and strength slider based on the status provided by CBBlueLightClient
         print("Blue light status -> \(blueLightStatus)")
-
+        
         
         blueLightClient.getBlueLightStatus(&blueLightStatus) // Get the current blue light status
         blueLightClient.getStrength(&blueLightStrength) // Get the current blue light strength
+        
+        wasEnabled = blueLightStatus.enabled == 1
         
         enableNightShiftMenuItem.state = Int(blueLightStatus.enabled) // Update the Night Shift toggle menu based on blueLightStatus
         nightShiftWarmthSlider.integerValue = Int(blueLightStrength * 100) // Update warmth slider based on blueLightStrength
