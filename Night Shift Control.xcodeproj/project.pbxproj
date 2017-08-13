@@ -13,6 +13,7 @@
 		6A0AE2DA1F39E4A400FE2219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A0AE2D91F39E4A400FE2219 /* Assets.xcassets */; };
 		6A0AE2E81F39E57E00FE2219 /* CoreBrightness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0AE2E71F39E57E00FE2219 /* CoreBrightness.framework */; };
 		6A43DF651F3B956000C57988 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A43DF631F3B956000C57988 /* MainMenu.xib */; };
+		6A8981541F40AFCF001C0197 /* screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A8981531F40AFCF001C0197 /* screenshot.png */; };
 		6ADEC3991F405BFE00897F6B /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEC3981F405BFE00897F6B /* Credits.html */; };
 		6ADEC39B1F40A01600897F6B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEC39A1F40A01600897F6B /* README.md */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		6A0AE2E91F39E63600FE2219 /* Night Shift Control-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Night Shift Control-Bridging-Header.h"; sourceTree = "<group>"; };
 		6A0AE2EB1F39E63700FE2219 /* CBBlueLightClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBBlueLightClient.h; sourceTree = "<group>"; };
 		6A43DF641F3B956000C57988 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6A8981531F40AFCF001C0197 /* screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot.png; sourceTree = "<group>"; };
 		6ADEC3981F405BFE00897F6B /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		6ADEC39A1F40A01600897F6B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,6 +50,7 @@
 			isa = PBXGroup;
 			children = (
 				6ADEC39A1F40A01600897F6B /* README.md */,
+				6A8981531F40AFCF001C0197 /* screenshot.png */,
 				6A0AE2ED1F39E65300FE2219 /* Headers */,
 				6A0AE2D61F39E4A400FE2219 /* Night Shift Control */,
 				6A0AE2D51F39E4A400FE2219 /* Products */,
@@ -157,6 +160,7 @@
 				6A0AE2DA1F39E4A400FE2219 /* Assets.xcassets in Resources */,
 				6ADEC3991F405BFE00897F6B /* Credits.html in Resources */,
 				6A43DF651F3B956000C57988 /* MainMenu.xib in Resources */,
+				6A8981541F40AFCF001C0197 /* screenshot.png in Resources */,
 				6A0200681F3DD49700FF6985 /* string_resource.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

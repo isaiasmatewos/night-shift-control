@@ -7,6 +7,8 @@ It let's you disable Night Shift for certain apps. Watch the belwow GIF for demo
 
 ## Screenshots
 
+
+
 ## Features
 
 * Disable Night Shift for apps for your choice
@@ -15,6 +17,7 @@ It let's you disable Night Shift for certain apps. Watch the belwow GIF for demo
 * Shows the current Night Shift status 
 
 ## Download
+
 Download from the releases tab [here](https://www.imore.com/how-open-apps-unidentified-developers-mac)
 
 ## How to install
