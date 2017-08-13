@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ns_not_supported_os_version_dialog_info</key>
+	<dict>
+		<key>value</key>
+		<string>Night Shift is avaliable on macOS Sierra 10.12.4 and later</string>
+		<key>comment</key>
+		<string>Night Shift unavailable due to lesser macOS version info text</string>
+	</dict>
 	<key>ns_not_available_dialog_title</key>
 	<dict>
 		<key>value</key>

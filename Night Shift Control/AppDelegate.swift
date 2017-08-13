@@ -51,6 +51,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        if #available(macOS 10.12.4, *) {
+            // Current macOS verion is 10.12.4 or later
+        } else {
+            // If macOS version is less than 10.12.4 we show an informative dialog and exit
+            let macOSVerInCompatibleAlert : NSAlert = NSAlert()
+            macOSVerInCompatibleAlert.messageText = "ns_not_available_dialog_title".localized
+            macOSVerInCompatibleAlert.informativeText = "ns_not_supported_os_version_dialog_info".localized
+            macOSVerInCompatibleAlert.runModal()
+            NSApplication.shared().terminate(self)
+        }
+        
         if !CBBlueLightClient.supportsBlueLightReduction() {
             // Night Shift is not supported by the current hardware we show a dialog informing the user and exit the app
             blueLightNotAvailableALert.messageText = "ns_not_available_dialog_title".localized
@@ -81,11 +92,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         statusItem.menu = statusMenu // Set the menu for system the status bar item
         
         // Set starting titles for menus
-        quitMenuItem.title = "quit".localized
+        disableForAppMenuItem.title = String(format: "disable_ns_for_app".localized, (NSWorkspace.shared().frontmostApplication?.localizedName)!)
         statusTitleMenuItem.title = "status_title".localized
         adjustWarmthTitleMenuItem.title = "adjust_warmth_title".localized
         launchNightShiftPrefsMenuItem.title = "open_display_pref_pane".localized
         launchAboutDialogMenuItem.title = "about".localized
+        quitMenuItem.title = "quit".localized
     }
     
     // Handles the Disable for App menu click
