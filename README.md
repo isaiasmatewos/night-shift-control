@@ -5,6 +5,7 @@
 Night Shift Control is a simple macOS menubar app for controlling Night Shift. It's aim is to bring features from f.lux which are missing from Night Shift such as disabling Night Shift for certain apps.
 
 ## Screenshots
+![Night Shift Control offering to disable for Sketch](screenshot.png "Night Shift Control offering to disable for Sketch")
 
 
 
