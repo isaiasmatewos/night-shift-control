@@ -14,7 +14,7 @@ Night Shift Control is a simple macOS menubar app for controlling Night Shift. I
 * Disable Night Shift for apps of your choice
 * Easily turn on/off Night Shift from the menubar
 * Control Night Shift warmth from the menubar
-* Shows the current Night Shift status and color temprature info (press ⌥ while clicking the menu bar item to see)
+* Shows the current Night Shift status and color temperature info (press ⌥ while clicking the menu bar item to see)
 
 ## Download
 
@@ -34,7 +34,7 @@ Then unzip the zip file and simply drag to the Applications folder.
 
 ## Make it start at login
 
-If you find Night Shift Control useful and want it launched everytime you login. You can add it to login items by going to System Preferences -\> Users & Groups -\> Login Items -\> click the '+' button and find Night Shift Control.
+If you find Night Shift Control useful and want it launched every time you login. You can add it to login items by going to System Preferences -\> Users & Groups -\> Login Items -\> click the '+' button and find Night Shift Control.
 
 ## How to build
 
