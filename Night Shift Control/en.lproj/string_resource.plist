@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>color_temprature_range</key>
+	<dict>
+		<key>value</key>
+		<string>Range: %@K to %@K</string>
+		<key>comment</key>
+		<string>Show the color temprature range from min to max when option key is pressed</string>
+	</dict>
+	<key>current_color_temprature</key>
+	<dict>
+		<key>value</key>
+		<string>Color Temprature: %@K</string>
+		<key>comment</key>
+		<string>Show the current color temprature when option key is pressed </string>
+	</dict>
 	<key>ns_not_supported_os_version_dialog_info</key>
 	<dict>
 		<key>value</key>

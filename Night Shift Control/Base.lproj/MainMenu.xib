@@ -16,6 +16,8 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Night_Shift_Control" customModuleProvider="target">
             <connections>
                 <outlet property="adjustWarmthTitleMenuItem" destination="doq-fn-spb" id="INE-Lj-tDk"/>
+                <outlet property="colorTemRangeMenuItem" destination="zrw-Ce-PoS" id="7yE-dD-yu5"/>
+                <outlet property="currentColorTempMenuItem" destination="iF3-Ov-kQf" id="SJB-1h-9wg"/>
                 <outlet property="disableForAppMenuItem" destination="zwE-ed-i7I" id="JVt-7D-i0b"/>
                 <outlet property="enableNightShiftMenuItem" destination="peK-6b-QRY" id="g6Q-yq-1fx"/>
                 <outlet property="launchAboutDialogMenuItem" destination="XdH-KK-hDM" id="MNC-dP-v5A"/>
@@ -57,6 +59,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="Night Shift Status" id="7kE-Mb-YJf">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Color temprature" hidden="YES" enabled="NO" id="iF3-Ov-kQf">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Range" hidden="YES" enabled="NO" id="zrw-Ce-PoS">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="4Io-SY-1Wz"/>

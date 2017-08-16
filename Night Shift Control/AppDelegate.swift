@@ -20,6 +20,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @IBOutlet weak var adjustWarmthTitleMenuItem: NSMenuItem!
     @IBOutlet weak var statusTitleMenuItem: NSMenuItem!
     @IBOutlet weak var nightShiftStatus: NSMenuItem!
+    @IBOutlet weak var currentColorTempMenuItem: NSMenuItem!
+    @IBOutlet weak var colorTemRangeMenuItem: NSMenuItem!
     @IBOutlet weak var launchNightShiftPrefsMenuItem: NSMenuItem!
     @IBOutlet weak var launchAboutDialogMenuItem: NSMenuItem!
     @IBOutlet weak var quitMenuItem: NSMenuItem!
@@ -47,6 +49,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     var wasEnabled : Bool = false // Flag to store whether Night Shift was enabled in the last non blacklisted app
     var blueLightNotAvailableALert = NSAlert() // Dialog to show that Night Shift is not supported by the current hardware
     var disabledForApp : Bool = false
+    var lastMode : Int32 = 0
+    var colorTemprature : Float = 0
+    var colorTempratureRange : CCTRange = CCTRange.init()
     
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -74,6 +79,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         blackListedApps = (defaults.object(forKey: blackListedAppsPrefKey) as? [String])! // Get blacklisted apps array from defaults
         blueLightClient.getStrength(&blueLightStrength) // Get the current strength and store it in blueLightStrenght
         blueLightClient.getBlueLightStatus(&blueLightStatus) // Get the current status of blue light and store it in blueLightStatus
+        blueLightClient.getCCT(&colorTemprature)
+        blueLightClient.getCCTRange(&colorTempratureRange)
+        
+        lastMode = blueLightStatus.mode
+        
         
         // We add a notification when an application becomes active
         applicationActiveObserver = self.notificationCenter.addObserver(forName: NSNotification.Name.NSWorkspaceDidActivateApplication, object: nil, queue: OperationQueue.main) {
@@ -81,6 +91,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             self.currentApp = NSWorkspace.shared().frontmostApplication! // Update the currentapp NSRunningApplication reference
             self.updateBlueLightStatusForApp() // Handle app changes
             print("Front app is --> \(self.currentApp.localizedName!)")
+        }
+        
+        NSEvent.addLocalMonitorForEvents(matching: NSEventMask.any) { nsevent in
+            if nsevent.modifierFlags.contains(NSEventModifierFlags.option) {
+                self.colorTemRangeMenuItem.isHidden = false
+                self.currentColorTempMenuItem.isHidden = false
+            } else {
+                self.colorTemRangeMenuItem.isHidden = true
+                self.currentColorTempMenuItem.isHidden = true
+            }
+            
+            
+            
+            return nsevent
         }
         
         
@@ -95,6 +119,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         disableForAppMenuItem.title = String(format: "disable_ns_for_app".localized, (NSWorkspace.shared().frontmostApplication?.localizedName)!)
         statusTitleMenuItem.title = "status_title".localized
         adjustWarmthTitleMenuItem.title = "adjust_warmth_title".localized
+        currentColorTempMenuItem.title = String(format: "current_color_temprature".localized,  String(Int(colorTemprature)))
+        colorTemRangeMenuItem.title =  String(format: "color_temprature_range".localized, String(Int(colorTempratureRange.minCCT)), String(Int(colorTempratureRange.maxCCT)))
+        
         launchNightShiftPrefsMenuItem.title = "open_display_pref_pane".localized
         launchAboutDialogMenuItem.title = "about".localized
         quitMenuItem.title = "quit".localized
@@ -153,14 +180,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     @IBAction func onNightShiftWarmSliderChanged(_ sender: NSSlider) {
         // Called when the warmth slider changed value
-        if sender.integerValue == 0 {
-            // If the slider value is zero we turn off NightShift alltogether
-            disabledNightShift(forApp: false)
-            enableNightShiftMenuItem.state = 0
-        } else {
-            enableNightShiftMenuItem.state = 1
-            blueLightClient.setStrength(sender.floatValue/100, commit: true)
-        }
+        blueLightClient.setStrength(sender.floatValue/100, commit: true)
+        blueLightClient.getCCT(&colorTemprature)
+        currentColorTempMenuItem.title = String(format: "current_color_temprature".localized,  String(Int(colorTemprature)))
     }
     
     @IBAction func launchDisplaysPrefPaneMenuItemClicked(_ sender: NSMenuItem) {
@@ -209,6 +231,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 // If it hasn't already been disabled, disable Night Shift
                 disabledNightShift(forApp: true)
             }
+            
             // Changes the title to "Enable for {Black Listed App}"
             disableForAppMenuItem.title =  String(format: "enable_ns_for_app".localized, self.currentApp.localizedName!)
         } else {
@@ -216,6 +239,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             if disabledForApp {
                 // Enable it if it has been disabled for a specific app
                 enableNightShift()
+            } else {
+                blueLightClient.setMode(lastMode)
             }
             // Changes the title to "Disable for {Black Listed App}"
             disableForAppMenuItem.title = String(format: "disable_ns_for_app".localized, self.currentApp.localizedName!)
@@ -225,13 +250,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func enableNightShift() {
         blueLightClient.setEnabled(true)
         disabledForApp = false
+        // We are restoring the last mode
+        blueLightClient.setMode(lastMode)
+        print("Current mode is \(lastMode)")
     }
     
     func disabledNightShift(forApp: Bool) {
         blueLightClient.getBlueLightStatus(&blueLightStatus)
         disabledForApp = forApp &&  blueLightStatus.enabled == 1
-        blueLightClient.setEnabled(false)
-        
+        lastMode = blueLightStatus.mode
+        blueLightClient.setMode(0)
+        print("Current mode is \(lastMode)")
     }
     
     
@@ -241,6 +270,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         
         
         blueLightClient.getBlueLightStatus(&blueLightStatus) // Get the current blue light status
+        blueLightClient.getCCTRange(&colorTempratureRange)
+        blueLightClient.getCCT(&colorTemprature)
         blueLightClient.getStrength(&blueLightStrength) // Get the current blue light strength
         
         wasEnabled = blueLightStatus.enabled == 1
@@ -324,7 +355,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             // Changed the title to "Enabled {fromTime} to {toTime}"
             nightShiftStatus.title = String(format:"custom_time_ns_status".localized, fromTime, toTime )
             enableNightShiftMenuItem.title = "turn_ns_on_until_to_tomorrow".localized
+            
         }
+        
+        currentColorTempMenuItem.title = String(format: "current_color_temprature".localized,  String(Int(colorTemprature)))
+        colorTemRangeMenuItem.title =  String(format: "color_temprature_range".localized, String(Int(colorTempratureRange.minCCT)), String(Int(colorTempratureRange.maxCCT)))
+        
     }
     
 }

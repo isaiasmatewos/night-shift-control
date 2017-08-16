@@ -14,8 +14,8 @@
 		6A0AE2E81F39E57E00FE2219 /* CoreBrightness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0AE2E71F39E57E00FE2219 /* CoreBrightness.framework */; };
 		6A43DF651F3B956000C57988 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A43DF631F3B956000C57988 /* MainMenu.xib */; };
 		6A8981541F40AFCF001C0197 /* screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A8981531F40AFCF001C0197 /* screenshot.png */; };
-		6ADEC3991F405BFE00897F6B /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEC3981F405BFE00897F6B /* Credits.html */; };
 		6ADEC39B1F40A01600897F6B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEC39A1F40A01600897F6B /* README.md */; };
+		6AE5F71E1F4382C0002C391E /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 6AE5F71D1F4382C0002C391E /* Credits.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +30,8 @@
 		6A0AE2EB1F39E63700FE2219 /* CBBlueLightClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBBlueLightClient.h; sourceTree = "<group>"; };
 		6A43DF641F3B956000C57988 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6A8981531F40AFCF001C0197 /* screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot.png; sourceTree = "<group>"; };
-		6ADEC3981F405BFE00897F6B /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		6ADEC39A1F40A01600897F6B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6AE5F71D1F4382C0002C391E /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 		6A0AE2D61F39E4A400FE2219 /* Night Shift Control */ = {
 			isa = PBXGroup;
 			children = (
-				6ADEC3981F405BFE00897F6B /* Credits.html */,
+				6AE5F71D1F4382C0002C391E /* Credits.html */,
 				6A0AE2D71F39E4A400FE2219 /* AppDelegate.swift */,
 				6A02006A1F3DD49700FF6985 /* string_resource.plist */,
 				6A43DF631F3B956000C57988 /* MainMenu.xib */,
@@ -158,10 +158,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A0AE2DA1F39E4A400FE2219 /* Assets.xcassets in Resources */,
-				6ADEC3991F405BFE00897F6B /* Credits.html in Resources */,
 				6A43DF651F3B956000C57988 /* MainMenu.xib in Resources */,
 				6A8981541F40AFCF001C0197 /* screenshot.png in Resources */,
 				6A0200681F3DD49700FF6985 /* string_resource.plist in Resources */,
+				6AE5F71E1F4382C0002C391E /* Credits.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,6 +22,12 @@ typedef struct {
 } Schedule;
 
 
+typedef struct {
+    float minCCT;
+    float maxCCT;
+    float midCCT;
+} CCTRange;
+
 
 typedef struct {
     char active;
@@ -33,14 +39,16 @@ typedef struct {
 } StatusData;
 
 @interface CBBlueLightClient : NSObject
+
++ (BOOL)supportsBlueLightReduction;
+
+- (BOOL)setEnabled:(BOOL)arg1;
 - (BOOL)setStrength:(float)arg1 withPeriod: (float) arg2 commit: (BOOL) arg3;
 - (BOOL)setStrength:(float)arg1 commit: (BOOL)arg2;
+- (BOOL)setMode:(int)arg1;
 - (BOOL)getStrength:(float *)arg1;
 - (BOOL)getCCT:(float *)arg1;
-- (BOOL)setCCT:(float) arg1 commit: (BOOL) arg2;
-- (BOOL)setEnabled:(BOOL)arg1;
-- (BOOL)setEnabled:(BOOL)arg1 withOption: (int) arg2;
-+ (BOOL)supportsBlueLightReduction;
+- (BOOL)getCCTRange:(CCTRange *) arg1;
 - (BOOL)getBlueLightStatus:(StatusData *)arg1;
 @end
 
